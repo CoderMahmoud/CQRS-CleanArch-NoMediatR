@@ -4,6 +4,7 @@ This project follows **Clean Architecture** principles using **Vertical Slice Ar
 
 Each feature owns its full vertical slice (Presentation → Application → Domain → Infrastructure), ensuring high cohesion and low coupling.
 
+![image alt](https://github.com/CoderMahmoud/CQRS-CleanArch-NoMediatR/blob/f561fb2241c5d9d832efec6076f60c34ba219b50/vertical_slice_architecture.png.png)
 ---
 
 ## 🚀 Features
