@@ -22,6 +22,11 @@ public sealed class RegisterUserCommandHandler : ICommandHandler<RegisterUserCom
             Email = command.Email
         };
 
+        if (!await _userRepository.IsEmailUniqueAsync(command.Email))
+        {
+            throw new Exception("Email already in use.");
+        }
+
         _userRepository.Insert(user);
 
         await _userRepository.SaveAsync(cancellationToken: cancellationToken);

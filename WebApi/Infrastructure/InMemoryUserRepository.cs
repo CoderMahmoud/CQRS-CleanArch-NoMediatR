@@ -18,20 +18,33 @@ public sealed class InMemoryUserRepository : IUserRepository
         _context.Users.Remove(user);
     }
 
-    public async Task<User?> Get(Guid id)
-    {
-        return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-    }
-
-    public async Task<User?> Get(string username)
+    public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
     {
         return await _context.Users
-                    .FirstOrDefaultAsync(x => x.UserName == username);
+                    .FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
+    }
+
+    public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await _context.Users
+                    .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+    }
+
+    public async Task<User?> GetByUsernameAsync(string username, CancellationToken cancellationToken = default)
+    {
+        return await _context.Users
+                    .FirstOrDefaultAsync(x => x.UserName == username, cancellationToken);
     }
 
     public void Insert(User user)
     {
         _context.Users.Add(user);
+    }
+
+    public async Task<bool> IsEmailUniqueAsync(string email, CancellationToken cancellationToken = default)
+    {
+        return !await _context.Users
+                     .AnyAsync(user => user.Email == email, cancellationToken);
     }
 
     public Task SaveAsync(CancellationToken cancellationToken = default)

@@ -17,7 +17,7 @@ public sealed class GetUserByUserNameQueryHandler : IQueryHandler<GetUserByUserN
     public async Task<UserResponse> Handle(GetUserByUserNameQuery query, CancellationToken cancellationToken)
     {
 
-        User? user = await _userRepository.Get(query.UserName);
+        User? user = await _userRepository.GetByUsernameAsync(query.UserName, cancellationToken);
 
         if (user == null)
         {

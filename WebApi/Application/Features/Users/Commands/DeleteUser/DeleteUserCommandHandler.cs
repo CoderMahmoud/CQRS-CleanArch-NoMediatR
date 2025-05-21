@@ -16,7 +16,7 @@ public sealed class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand
     public async Task Handle(DeleteUserCommand command, CancellationToken cancellationToken)
     {
 
-        User? user = await _userRepository.Get(command.UserId);
+        User? user = await _userRepository.GetByIdAsync(command.UserId);
 
         if (user == null)
         {
